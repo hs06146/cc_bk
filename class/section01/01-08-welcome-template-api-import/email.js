@@ -9,7 +9,7 @@ export function checkEmail(email) {
   }
 }
 
-export function getWelcomeTemplate({ name, age, school, createdAt }) {
+export function getWelcomeTemplate({ name, age, school }) {
   const mytemplate = `
             <html>
                 <body>
