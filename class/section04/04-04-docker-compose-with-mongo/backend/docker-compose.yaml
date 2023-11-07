@@ -1,0 +1,26 @@
+version: "3.7"
+
+# 명령어
+# docker-compose build
+# docker-compose up
+# ctrl+c || docker-compose stop
+
+# 컴퓨터들
+services:
+  # 컴퓨터 이름
+  my-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+  # 컴퓨터 이름
+  my-database:
+    build:
+      context: .
+      dockerfile: Dockerfile.mongo
+    ports:
+      - 27017:27107
+# 주의!! :
+#   1. 컴퓨터 이름은 lowercase 로 작성
+#   2. ports 는 build 와 같은 라인에
