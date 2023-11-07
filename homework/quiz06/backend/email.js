@@ -1,6 +1,8 @@
 import { getToday } from "./utils.js";
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 
+dotenv.config();
 export function checkEmail(email) {
   if (email.includes("@") === false || email === undefined) {
     console.log("에러 발생!!! 이메일을 제대로 입력해 주세요!!");

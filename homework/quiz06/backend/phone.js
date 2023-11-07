@@ -1,5 +1,7 @@
 import coolsms from "coolsms-node-sdk";
+import dotenv from "dotenv";
 
+dotenv.config();
 const mysms = coolsms.default;
 
 export function checkPhone(myphone) {
