@@ -30,14 +30,10 @@ class Monster {
     console.log("도망가자!");
   };
 }
-// const monster = new Monster();
-// monster.attack();
-// monster.run();
+const monster1 = new Monster(20);
+monster1.attack();
+monster1.run();
 
-// const monster1 = new Monster();
-// monster1.power = 12;
-// monster1.attack();
-// monster1.run();
-
-const monster2 = new Monster(20);
+const monster2 = new Monster(50);
 monster2.attack();
+monster2.run();
