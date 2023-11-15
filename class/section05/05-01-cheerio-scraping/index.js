@@ -16,7 +16,7 @@ const createMessage = async () => {
     if ($(el).attr("property") && $(el).attr("property").includes("og:")) {
       const key = $(el).attr("property"); // og:title, og:description ...
       const value = $(el).attr("content"); // 네이버, 네이버 메인에서~~
-      console.log(key, value);
+      // console.log(key, value);
     }
   });
 };
