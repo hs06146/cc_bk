@@ -22,7 +22,7 @@ services:
   my-database:
     # Dockerfile 에 한 줄만 쓰여지는 경우 image로 추가해주면 됨.
     platform: linux/x86_64
-    image: mysql:latest
+    image: mysql:8.0.35
     environment:
       MYSQL_DATABASE: 'quiz13' # mysql이 실행되고, "mydocker" 라는 데이터베이스가 생성됨.
       MYSQL_ROOT_PASSWORD: 'root' # mysql 실행되고 root 비밀번호를 "root"로 설정

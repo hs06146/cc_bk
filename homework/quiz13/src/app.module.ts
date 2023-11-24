@@ -10,7 +10,7 @@ import { Starbucks } from './apis/starbucks/entities/starbucks.entity';
   imports: [
     StarbucksModule,
     ConfigModule.forRoot({
-      // envFilePath: './.env',
+      envFilePath: './.env.docker',
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -19,13 +19,14 @@ import { Starbucks } from './apis/starbucks/entities/starbucks.entity';
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE as 'mysql',
       host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
+      port: parseInt(process.env.DATABASE_PORT, 10),
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DATABASE,
       entities: [Starbucks],
-      autoLoadEntities: true,
-      synchronize: true,
+      // autoLoadEntities: true,
+      logging: true,
+      synchronize: false,
     }),
   ],
 })
