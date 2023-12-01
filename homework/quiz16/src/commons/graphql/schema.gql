@@ -1,0 +1,70 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Allergy {
+  id: String!
+  name: String!
+  products: [Product!]!
+}
+
+type MainCategory {
+  id: String!
+  name: String!
+}
+
+type SubCategory {
+  id: String!
+  name: String!
+  mainCategory: MainCategory!
+}
+
+type Product {
+  id: String!
+  koName: String!
+  enName: String!
+  description: String!
+  kcal: Int!
+  mg: Int!
+  subCategory: SubCategory!
+  allergies: [Allergy!]!
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  fetchSubCategories: [SubCategory!]!
+  fetchMainCategories: [MainCategory!]!
+}
+
+type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  createSubCategory(createSubCategoryInput: CreateSubCategoryInput!): SubCategory!
+  createMainCategory(name: String!): MainCategory!
+}
+
+input CreateProductInput {
+  koName: String!
+  enName: String!
+  description: String!
+  kcal: Int!
+  mg: Int!
+  subCategoryId: String!
+  allergies: [String!]!
+}
+
+input UpdateProductInput {
+  koName: String
+  enName: String
+  description: String
+  kcal: Int
+  mg: Int
+  subCategoryId: String
+  allergies: [String!]
+}
+
+input CreateSubCategoryInput {
+  name: String!
+  mainCategoryId: String!
+}
