@@ -5,6 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserInput } from './dto/create-user.input';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserInput } from './dto/update-user.input';
+import {
+  IUsersServiceCreate,
+  IUsersServiceDelete,
+  IUsersServiceFindOne,
+  IUsersServiceFindOneByUserId,
+  IUsersServiceUpdate,
+  IUsersServiceValidateNickname,
+} from './entities/interfaces/users-service.interface';
 
 @Injectable()
 export class UsersService {
@@ -62,29 +70,4 @@ export class UsersService {
   findOne({ id }: IUsersServiceFindOne): Promise<User> {
     return this.userRepository.findOne({ where: { id } });
   }
-}
-
-interface IUsersServiceCreate {
-  user: CreateUserInput;
-}
-
-interface IUsersServiceValidateNickname {
-  nickname: string;
-}
-
-interface IUsersServiceFindOneByUserId {
-  userId: string;
-}
-
-interface IUsersServiceDelete {
-  userId: string;
-}
-
-interface IUsersServiceUpdate {
-  id: string;
-  updateUserInput: UpdateUserInput;
-}
-
-interface IUsersServiceFindOne {
-  id: string;
 }
