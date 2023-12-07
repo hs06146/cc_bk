@@ -1,0 +1,103 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Allergy {
+  id: String!
+  name: String!
+  products: [Product!]!
+}
+
+type MainCategory {
+  id: String!
+  name: String!
+}
+
+type SubCategory {
+  id: String!
+  name: String!
+  mainCategory: MainCategory!
+}
+
+type Product {
+  id: String!
+  koName: String!
+  enName: String!
+  description: String!
+  kcal: Int!
+  mg: Int!
+  subCategory: SubCategory!
+  allergies: [Allergy!]!
+}
+
+type User {
+  id: String!
+  userId: String!
+  email: String!
+  name: String!
+  phone: String!
+  nickname: String!
+}
+
+type Query {
+  fetchLoginUser(id: String!): User!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  fetchSubCategories: [SubCategory!]!
+  fetchMainCategories: [MainCategory!]!
+}
+
+type Mutation {
+  login(userId: String!, password: String!): String!
+  createUser(user: CreateUserInput!): User!
+  deleteLoginUser(id: String!): Boolean!
+  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
+  updateUserPwd(id: String!, password: String!): User!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  restoreProduct(productId: String!): Boolean!
+  fetchProductsWithDeleted: [Product!]!
+  createSubCategory(createSubCategoryInput: CreateSubCategoryInput!): SubCategory!
+  createMainCategory(name: String!): MainCategory!
+}
+
+input CreateUserInput {
+  userId: String!
+  password: String!
+  email: String!
+  name: String!
+  phone: String!
+  nickname: String!
+}
+
+input UpdateUserInput {
+  password: String
+  phone: String
+  nickname: String
+}
+
+input CreateProductInput {
+  koName: String!
+  enName: String!
+  description: String!
+  kcal: Int!
+  mg: Int!
+  subCategoryId: String!
+  allergies: [String!]!
+}
+
+input UpdateProductInput {
+  koName: String
+  enName: String
+  description: String
+  kcal: Int
+  mg: Int
+  subCategoryId: String
+  allergies: [String!]
+}
+
+input CreateSubCategoryInput {
+  name: String!
+  mainCategoryId: String!
+}
