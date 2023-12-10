@@ -1,11 +1,5 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
@@ -13,10 +7,6 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
-
-  @Column({ unique: true })
-  @Field(() => String)
-  userId: string;
 
   @Column()
   password: string;
@@ -30,16 +20,6 @@ export class User {
   name: string;
 
   @Column()
-  @Field(() => String)
-  phone: string;
-
-  @Column({ unique: true })
-  @Field(() => String)
-  nickname: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
+  @Field(() => Int)
+  age: number;
 }

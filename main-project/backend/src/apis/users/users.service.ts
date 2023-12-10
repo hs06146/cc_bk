@@ -7,10 +7,8 @@ import {
   IUsersServiceCreate,
   IUsersServiceDelete,
   IUsersServiceFindOne,
-  IUsersServiceFindOneByUserId,
   IUsersServiceUpdate,
   IUsersServiceUpdateUserPwd,
-  IUsersServiceValidateNickname,
 } from './interfaces/users-service.interface';
 
 @Injectable()
@@ -20,29 +18,15 @@ export class UsersService {
     private readonly userRepository: Repository<User>, //
   ) {}
 
-  findOneByUserId({ userId }: IUsersServiceFindOneByUserId): Promise<User> {
-    return this.userRepository.findOne({ where: { userId } });
-  }
-
-  validateNickname({ nickname }: IUsersServiceValidateNickname): Promise<User> {
-    return this.userRepository.findOne({ where: { nickname } });
-  }
-
   async create({ user }: IUsersServiceCreate): Promise<User> {
-    const { userId, password, nickname, ...userInfo } = user;
+    const { password, ...userInfo } = user;
 
-    const existUser = await this.findOneByUserId({ userId });
-    if (existUser) throw new ConflictException('이미 존재하는 아이디입니다.');
-
-    const existNickname = await this.validateNickname({ nickname });
-    if (existNickname)
-      throw new ConflictException('이미 존재하는 닉네임입니다.');
+    const existUser = await this.findOne({ email: userInfo.email });
+    if (existUser) throw new ConflictException('이미 존재하는 이메일입니다.');
 
     const hashedPassword = await bcrypt.hash(password, 10);
     return this.userRepository.save({
-      userId,
       password: hashedPassword,
-      nickname,
       ...userInfo,
     });
   }
@@ -52,29 +36,25 @@ export class UsersService {
     return result.affected ? true : false;
   }
 
-  async update({ id, updateUserInput }: IUsersServiceUpdate): Promise<User> {
-    const { nickname, ...newUpdateUserInput } = updateUserInput;
-    const user = await this.findOne({ id });
-    const existNickname = await this.validateNickname({ nickname });
-    if (existNickname)
-      throw new ConflictException('이미 존재하는 닉네임입니다.');
+  async update({ email, updateUserInput }: IUsersServiceUpdate): Promise<User> {
+    const { ...newUpdateUserInput } = updateUserInput;
+    const user = await this.findOne({ email });
 
     return this.userRepository.save({
       ...user,
-      nickname,
       ...newUpdateUserInput,
     });
   }
 
-  findOne({ id }: IUsersServiceFindOne): Promise<User> {
-    return this.userRepository.findOne({ where: { id } });
+  findOne({ email }: IUsersServiceFindOne): Promise<User> {
+    return this.userRepository.findOne({ where: { email } });
   }
 
   async updateUserPwd({
-    id,
+    email,
     password,
   }: IUsersServiceUpdateUserPwd): Promise<User> {
-    const user = await this.findOne({ id });
+    const user = await this.findOne({ email });
     const hashedPassword = await bcrypt.hash(password, 10);
     return this.userRepository.save({ ...user, password: hashedPassword });
   }

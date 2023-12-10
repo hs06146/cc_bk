@@ -17,11 +17,11 @@ export class AuthService {
   ) {}
 
   async login({
-    userId,
+    email,
     password,
     context,
   }: IAuthServiceLogin): Promise<string> {
-    const user = await this.usersService.findOneByUserId({ userId });
+    const user = await this.usersService.findOne({ email });
     if (!user)
       throw new UnprocessableEntityException('존재하지 않는 아이디입니다.');
 
@@ -51,6 +51,15 @@ export class AuthService {
       'set-cookie',
       `refreshToken=${refreshToken}; path=/;`,
     );
+  }
+
+  setRefreshTokenREST({ user, res }) {
+    const refreshToken = this.jwtService.sign(
+      { sub: user.id },
+      { secret: 'myRefreshPassword', expiresIn: '2w' },
+    );
+
+    res.setHeader('set-cookie', `refreshToken=${refreshToken}; path=/;`);
   }
 
   restoreAccessToken({ user }: IAuthServiceRestoreAccessToken): string {

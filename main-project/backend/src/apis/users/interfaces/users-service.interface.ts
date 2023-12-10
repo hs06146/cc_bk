@@ -5,28 +5,20 @@ export interface IUsersServiceCreate {
   user: CreateUserInput;
 }
 
-export interface IUsersServiceValidateNickname {
-  nickname: string;
-}
-
-export interface IUsersServiceFindOneByUserId {
-  userId: string;
-}
-
 export interface IUsersServiceDelete {
   id: string;
 }
 
 export interface IUsersServiceUpdate {
-  id: string;
+  email: string;
   updateUserInput: UpdateUserInput;
 }
 
 export interface IUsersServiceFindOne {
-  id: string;
+  email: string;
 }
 
 export interface IUsersServiceUpdateUserPwd {
-  id: string;
+  email: string;
   password: string;
 }

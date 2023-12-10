@@ -6,7 +6,7 @@ export interface IAuthServiceGetAccessToken {
 }
 
 export interface IAuthServiceLogin {
-  userId: string;
+  email: string;
   password: string;
   context: IContext;
 }

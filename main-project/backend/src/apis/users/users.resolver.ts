@@ -30,26 +30,26 @@ export class UsersResolver {
   @UseGuards(GqlAuthGuard('access'))
   @Mutation(() => User)
   updateUser(
-    @Args('id') id: string, //
+    @Args('email') email: string, //
     @Args('updateUserInput') updateUserInput: UpdateUserInput,
   ): Promise<User> {
-    return this.usersService.update({ id, updateUserInput });
+    return this.usersService.update({ email, updateUserInput });
   }
 
   @UseGuards(GqlAuthGuard('access'))
   @Query(() => User)
   fetchLoginUser(
-    @Args('id') id: string, //
+    @Args('email') email: string, //
   ): Promise<User> {
-    return this.usersService.findOne({ id });
+    return this.usersService.findOne({ email });
   }
 
   @UseGuards(GqlAuthGuard('access'))
   @Mutation(() => User)
   updateUserPwd(
-    @Args('id') id: string, //
+    @Args('email') email: string, //
     @Args('password') password: string,
   ): Promise<User> {
-    return this.usersService.updateUserPwd({ id, password });
+    return this.usersService.updateUserPwd({ email, password });
   }
 }

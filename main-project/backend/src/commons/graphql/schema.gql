@@ -32,15 +32,13 @@ type Product {
 
 type User {
   id: String!
-  userId: String!
   email: String!
   name: String!
-  phone: String!
-  nickname: String!
+  age: Int!
 }
 
 type Query {
-  fetchLoginUser(id: String!): User!
+  fetchLoginUser(email: String!): User!
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
   fetchSubCategories: [SubCategory!]!
@@ -48,12 +46,12 @@ type Query {
 }
 
 type Mutation {
-  login(userId: String!, password: String!): String!
+  login(email: String!, password: String!): String!
   restoreAccessToken: String!
   createUser(user: CreateUserInput!): User!
   deleteLoginUser(id: String!): Boolean!
-  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
-  updateUserPwd(id: String!, password: String!): User!
+  updateUser(email: String!, updateUserInput: UpdateUserInput!): User!
+  updateUserPwd(email: String!, password: String!): User!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
@@ -64,18 +62,17 @@ type Mutation {
 }
 
 input CreateUserInput {
-  userId: String!
   password: String!
   email: String!
   name: String!
-  phone: String!
-  nickname: String!
+  age: Int!
 }
 
 input UpdateUserInput {
   password: String
-  phone: String
-  nickname: String
+  email: String
+  name: String
+  age: Int
 }
 
 input CreateProductInput {
