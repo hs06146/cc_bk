@@ -67,6 +67,9 @@ export class PointsTransactionsService {
     } finally {
       // 연결 끊기
       queryRunner.release();
+      // Database의 max_connection 갯수는 한정되어있음.
+      // release 를 하지 않으면 commit이 끝나도 커넥션이 안끊겨서 db_connection status가 sleep 상태로 됨. (하지만, 에러나면 강제로 끊김)
+      // 결국 연결 갯수 초과로 그 다음 사람은 무한 대기 상태가 됨.
     }
   }
 }
