@@ -8,10 +8,12 @@ import { SubCategoriesModule } from './apis/subCategories/subCategories.module';
 import { MainCategoriesModule } from './apis/mainCategories/mainCategories.module';
 import { UsersModule } from './apis/users/users.module';
 import { AuthModule } from './apis/auth/auth.module';
+import { PaymentsMoudle } from './apis/payments/payments.module';
 
 @Module({
   imports: [
     AuthModule,
+    PaymentsMoudle,
     ProductsModule,
     SubCategoriesModule,
     MainCategoriesModule,

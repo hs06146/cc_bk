@@ -37,7 +37,7 @@ export class AuthService {
     const payload = { sub: user.id };
     return this.jwtService.sign(payload, {
       secret: 'myPassword',
-      expiresIn: '30s',
+      expiresIn: '1h',
     });
   }
 
