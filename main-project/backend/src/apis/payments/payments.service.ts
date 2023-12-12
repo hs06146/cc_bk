@@ -7,6 +7,7 @@ import {
 } from './entities/payment.entity';
 import { User } from '../users/entities/users.entity';
 import { IPaymentsServiceCreate } from './interfaces/payments-service.interface';
+import axios from 'axios';
 
 @Injectable()
 export class PaymentsService {
@@ -28,6 +29,33 @@ export class PaymentsService {
     await queryRunner.connect();
     await queryRunner.startTransaction('SERIALIZABLE');
     try {
+      const imp_getToken = await axios({
+        url: 'https://api.iamport.kr/users/getToken',
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+          imp_key: '4530824847164481',
+          imp_secret:
+            'Bs0ySw3fat3QDgXam73SNiCCkMk6gIog4z5bQJjApIdJwly4u8KsCMrvNcPvctbPKCBGgEL3DveT4TH2',
+        },
+      });
+      const { access_token } = imp_getToken.data.response;
+
+      // imp_uid로 인증 정보 조회
+      const getCertifications = await axios({
+        // imp_uid 전달
+        url: `https://api.iamport.kr/payments/${impUid}`,
+        // GET method
+        method: 'get',
+        // 인증 토큰 Authorization header에 추가
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+      const certificationsInfo = getCertifications.data; // 조회한 인증 정보
+      console.log(certificationsInfo);
+
       // 1. PointTransaction 테이블에 거래기록 1줄 생성
       const payment = this.paymentRepository.create({
         impUid,
