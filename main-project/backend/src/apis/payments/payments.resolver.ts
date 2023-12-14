@@ -11,7 +11,7 @@ export class PaymentsResolver {
 
   @UseGuards(GqlAuthGuard('access'))
   @Mutation(() => Payment)
-  createPointTransaction(
+  createPayment(
     @Args('impUid') impUid: string, //
     @Args({ name: 'amount', type: () => Int }) amount: number,
     @Context() context: IContext,

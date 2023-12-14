@@ -8,12 +8,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-export enum POINT_TRANSACTION_STATUS_ENUM {
+export enum PAYMENT_STATUS_ENUM {
   PAYMENT = 'PAYMENT',
   CANCEL = 'CANCEL',
 }
 
-registerEnumType(POINT_TRANSACTION_STATUS_ENUM, {
+registerEnumType(PAYMENT_STATUS_ENUM, {
   name: 'POINT_TRANSACTION_STATUS_ENUM',
 });
 
@@ -32,10 +32,10 @@ export class Payment {
   @Field(() => Int)
   amount: number;
 
-  @Column({ type: 'enum', enum: POINT_TRANSACTION_STATUS_ENUM })
-  @Field(() => POINT_TRANSACTION_STATUS_ENUM)
+  @Column({ type: 'enum', enum: PAYMENT_STATUS_ENUM })
+  @Field(() => PAYMENT_STATUS_ENUM)
   // status: '결제완료' 또는 '취소완료';
-  status: POINT_TRANSACTION_STATUS_ENUM;
+  status: PAYMENT_STATUS_ENUM;
 
   @ManyToOne(() => User)
   @Field(() => User)
