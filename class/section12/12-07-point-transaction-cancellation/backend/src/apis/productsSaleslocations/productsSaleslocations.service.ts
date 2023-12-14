@@ -1,19 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { ProductSalesLocation } from './entities/productSalesLocation.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProductSaleslocation } from './entities/productSaleslocation.entity';
-import { IProductsSaleslocationsServiceCreate } from './interfaces/products-saleslocations.interface';
 
 @Injectable()
-export class ProductsSaleslocationsService {
+export class ProductsSalesLocationsService {
   constructor(
-    @InjectRepository(ProductSaleslocation)
-    private readonly productsSaleslocationsRepository: Repository<ProductSaleslocation>,
+    @InjectRepository(ProductSalesLocation)
+    private readonly productsSalesLocationsRepository: Repository<ProductSalesLocation>,
   ) {}
 
-  create({ productSaleslocation }: IProductsSaleslocationsServiceCreate) {
-    return this.productsSaleslocationsRepository.save({
-      ...productSaleslocation,
+  create({ productSalesLocation }) {
+    return this.productsSalesLocationsRepository.save({
+      ...productSalesLocation,
     });
   }
 }

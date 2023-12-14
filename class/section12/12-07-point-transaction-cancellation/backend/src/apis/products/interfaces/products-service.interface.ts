@@ -18,7 +18,3 @@ export interface IProductsServiceUpdate {
   productId: string;
   updateProductInput: UpdateProductInput;
 }
-
-export interface IProductsServiceDelete {
-  productId: string;
-}
