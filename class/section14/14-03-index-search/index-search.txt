@@ -1,0 +1,18 @@
+# 데이터 전체 갯수 확인
+select count(*) from board;
+
+# 쿼리 검색 속도 비교
+select * from board where title = '0.5016389009558027'; # 1.318s 걸림, 인덱스 만든 후 18ms 걸림
+
+select * from board where number = 390; # 3ms 걸림.
+
+# 옵티마이저 실행 계획 확인
+explain select * from board where title = '0.5016389009558027';
+
+explain select * from board where number = 390; # 3ms 걸림.
+
+# 인덱스 확인
+show index from board;
+
+# 인덱스 생성
+create index idx_title on board(title);
