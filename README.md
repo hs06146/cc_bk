@@ -1,2 +1,2 @@
 # cc_bk
-Codecamp backend ver.2
+Study Nodejs and Nestjs
